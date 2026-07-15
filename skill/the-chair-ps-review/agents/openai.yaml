@@ -1,0 +1,5 @@
+interface:
+  display_name: "The Chair｜PS 契合度诊断"
+  short_description: "判断留学 PS 是在匹配项目，还是重复 CV，并给出修改优先级"
+  default_prompt: "使用 $the-chair-ps-review 先按固定模板收集项目、官网、题目、字数和文书，再做定性契合度诊断，只指导不代写。"
+
