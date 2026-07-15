@@ -1,5 +1,10 @@
-# The-Chair-PS-Review
-面向 Codex 的留学 PS 定性诊断 Skill：判断文书是在匹配项目，还是重复 CV；聚焦主线逻辑、思考深度、经历取舍与项目契合，提供诊断和引导。（小红书：The椅子）
+# The Chair: PS Review
+
+> 判断一篇留学 PS 是在真正匹配项目，还是只是在重复 CV。
+
+**The Chair: PS Review** 是一个面向 Codex 的留学个人陈述定性诊断 Skill。它关注申请者与项目之间是否形成可信、具体的匹配关系，并检查文书的定位、主线逻辑、思考深度、经历取舍、项目匹配与 CV 化问题。
+
+它始终坚持一条边界：**诊断和引导，不代写。**
 
 ## 核心理念
 
@@ -60,14 +65,14 @@
 
 现有校准案例最适合英国、中国香港和新加坡的授课型硕士申请，覆盖法律、社会科学、公共政策、人力资源管理和商业分析等方向。
 
-它不应被直接套用于本科主文书、博士研究计划、奖学金文书、推荐信。这些材料需要不同的评价任务和结构标准。
+它不应被直接套用于本科 Common App 主文书、博士研究计划、奖学金文书、推荐信或 Personal History Statement。这些材料需要不同的评价任务和结构标准。
 
 ## 使用前需要准备
 
 为避免脱离题目评价文书，请尽量提供完整申请语境：
 
 ```text
-请使用 $review-study-abroad-ps 对我的文书进行定性诊断。
+请使用 $the-chair-ps-review 对我的文书进行定性诊断。
 请只诊断和引导，不代写成稿，也不要默认给数字评分。
 
 【申请类别】授课型硕士 / 研究型硕士 / 本科 / 博士 / 其他：
@@ -95,13 +100,13 @@
 下载或克隆本仓库，将 Skill 目录复制到个人 Codex skills 目录：
 
 ```text
-$CODEX_HOME/skills/review-study-abroad-ps/
+$CODEX_HOME/skills/the-chair-ps-review/
 ```
 
 当 `CODEX_HOME` 未单独设置时，个人目录通常为：
 
 ```text
-~/.codex/skills/review-study-abroad-ps/
+~/.codex/skills/the-chair-ps-review/
 ```
 
 确保该目录直接包含：
@@ -116,7 +121,7 @@ scripts/
 安装后，在 Codex 中使用当前 Skill ID 调用：
 
 ```text
-$review-study-abroad-ps
+$the-chair-ps-review
 ```
 
 ## 推荐仓库结构
@@ -124,11 +129,10 @@ $review-study-abroad-ps
 仓库级 README 与运行时 Skill 分开存放：
 
 ```text
-the-chair-ps-review/
+The-Chair-PS-Review/
 ├── README.md
-├── LICENSE
 └── skill/
-    └── review-study-abroad-ps/
+    └── the-chair-ps-review/
         ├── SKILL.md
         ├── agents/
         ├── references/
@@ -136,6 +140,8 @@ the-chair-ps-review/
 ```
 
 这样 README 用于 GitHub 展示，不会占用 Skill 运行时上下文。
+
+如需真正开源并允许他人修改、分发，请另外选择并添加合适的 `LICENSE`；在尚未决定许可证前，不要随意复制一份许可证文件。
 
 ## 隐私与案例
 
@@ -151,8 +157,9 @@ the-chair-ps-review/
 
 ## 项目定位
 
-The Chair 不是招生委员会。本项目提供的是一种以项目契合、逻辑结构和真实思考为中心的文书诊断方法，不保证录取结果。
+The Chair 不是招生委员会，也不代表任何大学或项目。本项目提供的是一种以项目契合、逻辑结构和真实思考为中心的文书诊断方法，不保证录取结果。
 
 ---
 
 **Diagnose fit, logic, and depth. Never ghostwrite.**
+
