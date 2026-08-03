@@ -124,5 +124,5 @@ Give the three highest-leverage revision tasks in dependency order. Ask reflecti
 
 Follow `references/output-schema.md`. Match the user's language, keep quoted application text in its original language, and remain direct but constructive.
 
-End with a self-revision checklist. Do not append a rewritten essay.
+Include a self-revision checklist before the final expert consensus and disagreement section. Do not append a rewritten essay.
 

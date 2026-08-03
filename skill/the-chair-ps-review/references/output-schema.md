@@ -61,7 +61,7 @@ Ask no more than three focused questions that recover missing reflection, eviden
 
 ## 11. Self-revision checklist
 
-End with a concise checklist tailored to the draft.
+Include a concise checklist tailored to the draft before the final transparency section.
 
 ## 12. Expert consensus and disagreement
 

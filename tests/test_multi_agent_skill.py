@@ -152,15 +152,37 @@ class SkillOrchestrationTests(unittest.TestCase):
 class OutputTransparencyTests(unittest.TestCase):
     def test_output_schema_adds_concise_evidence_based_arbitration(self) -> None:
         schema = read(OUTPUT_SCHEMA)
-        self.assertIn("## 12. Expert consensus and disagreement", schema)
-        self.assertIn("approximately 150 Chinese characters", schema)
-        self.assertIn("evidence, not vote count", schema)
-        self.assertIn("Do not expose private chain-of-thought", schema)
+        checklist = section(schema, "## 11. Self-revision checklist")
+        transparency = section(schema, "## 12. Expert consensus and disagreement")
+        self.assertLess(
+            schema.index("## 11. Self-revision checklist"),
+            schema.index("## 12. Expert consensus and disagreement"),
+        )
+        self.assertIn(
+            "Include a concise checklist tailored to the draft before the final transparency section.",
+            checklist,
+        )
+        self.assertNotIn("End with a concise checklist", checklist)
+        self.assertIn("approximately 150 Chinese characters", transparency)
+        self.assertIn("supported by more than one specialist", transparency)
+        self.assertIn("competing conclusions", transparency)
+        self.assertIn("evidence, not vote count", transparency)
+        self.assertIn("Not assessable or reduced coverage", transparency)
+        self.assertIn("failed specialist dimensions", transparency)
+        self.assertIn("append complete specialist reports", transparency)
+        self.assertIn("Do not expose private chain-of-thought", transparency)
 
     def test_output_schema_never_simulates_consensus_after_fallback(self) -> None:
         schema = read(OUTPUT_SCHEMA)
-        self.assertIn("one-sentence fallback disclosure", schema)
-        self.assertIn("do not claim expert consensus", schema)
+        transparency = section(schema, "## 12. Expert consensus and disagreement")
+        skill = read(SKILL)
+        self.assertIn("one-sentence fallback disclosure", transparency)
+        self.assertIn("do not claim expert consensus", transparency)
+        self.assertIn(
+            "Include a self-revision checklist before the final expert consensus and disagreement section.",
+            skill,
+        )
+        self.assertNotIn("End with a self-revision checklist.", skill)
 
 
 if __name__ == "__main__":
