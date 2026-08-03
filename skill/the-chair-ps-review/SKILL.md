@@ -37,10 +37,31 @@ Read these files before evaluating:
 - `references/evaluation-philosophy.md` for the governing principles and prohibited shortcuts.
 - `references/rubric.md` for qualitative diagnostic dimensions, issue severity, and verdict rules.
 - `references/output-schema.md` before writing the final diagnosis.
+- Read `references/multi-agent-protocol.md` for specialist roles, parallel dispatch, result contracts, arbitration, privacy, and fallback behaviour.
 
 Read `references/application-contexts.md` when the prompt type, required inputs, or institutional context is uncertain. Read `references/calibration-cases.md` when distinguishing a strong narrative from a polished but CV-like or over-engineered one.
 
-## Run the diagnostic workflow
+## Orchestrate the multi-agent diagnosis
+
+The primary agent remains the Chair. Delegate only after the required intake is complete or the user explicitly accepts a provisional text-only precheck.
+
+Prepare the smallest sufficient shared context: application type, document type, institution and programme, exact prompt, word limit, applicant background, draft, verified or pasted official programme information, and known limitations. Remove or mask identifiers that are unnecessary for review.
+
+When subagent tools are available:
+
+1. Launch all applicable specialists in parallel using the bounded role instructions and result contract in `references/multi-agent-protocol.md`.
+2. Always launch the task-compliance, narrative-structure, and depth-and-credibility specialists.
+3. Launch the programme-match specialist only when official programme information was pasted by the user or an official page was successfully verified. Do not launch the programme-match specialist for an inaccessible URL alone.
+4. Wait for every launched specialist before synthesising the diagnosis.
+5. Treat specialist conclusions as evidence, not votes. Resolve overlap and conflict with the draft, verified programme facts, role ownership, and `references/rubric.md`.
+
+If subagent tools are disabled, unavailable, or every specialist fails, tell the user before falling back to the existing single-agent diagnostic workflow below. Never claim expert consensus after a full fallback. If only one specialist fails, preserve successful results and disclose the reduced coverage in the final transparency section.
+
+Do not expose private chain-of-thought or append full specialist reports. The Chair writes one report only.
+
+## Apply the diagnostic and synthesis checklist
+
+Use the following steps as the shared diagnostic standard and as the Chair's synthesis checklist. Do not perform a duplicate full review before launching specialists.
 
 ### 1. Classify the task
 

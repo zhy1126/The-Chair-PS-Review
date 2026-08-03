@@ -80,5 +80,21 @@ class MultiAgentProtocolTests(unittest.TestCase):
         self.assertIn("Never simulate specialist consensus", unavailable)
 
 
+class SkillOrchestrationTests(unittest.TestCase):
+    def test_skill_loads_protocol_launches_in_parallel_and_waits(self) -> None:
+        skill = read(SKILL)
+        self.assertIn("Read `references/multi-agent-protocol.md`", skill)
+        self.assertIn("Launch all applicable specialists in parallel", skill)
+        self.assertIn("Wait for every launched specialist", skill)
+        self.assertIn("The primary agent remains the Chair", skill)
+
+    def test_skill_uses_conditional_programme_specialist_and_explicit_fallback(self) -> None:
+        skill = read(SKILL)
+        self.assertIn("Do not launch the programme-match specialist", skill)
+        self.assertIn("official programme information", skill)
+        self.assertIn("tell the user before falling back", skill.lower())
+        self.assertIn("Never claim expert consensus after a full fallback", skill)
+
+
 if __name__ == "__main__":
     unittest.main()
