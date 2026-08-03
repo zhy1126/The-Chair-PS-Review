@@ -63,5 +63,17 @@ Ask no more than three focused questions that recover missing reflection, eviden
 
 End with a concise checklist tailored to the draft.
 
+## 12. Expert consensus and disagreement
+
+Keep this section to approximately 150 Chinese characters or a similarly compact amount in the user's language. Omit empty items.
+
+- **Consensus:** Include only material conclusions supported by more than one specialist.
+- **Disagreement and Chair decision:** State the competing conclusions, the selected conclusion, and the decisive short evidence. Resolve by evidence, not vote count.
+- **Not assessable or reduced coverage:** Name missing inputs or failed specialist dimensions that materially limit the diagnosis.
+
+Do not expose private chain-of-thought or append complete specialist reports.
+
+When multi-agent capability was unavailable or every specialist failed, replace this section with a one-sentence fallback disclosure and do not claim expert consensus.
+
 Do not provide a full rewritten paragraph or essay. If an illustration is essential, use placeholders such as `[specific observation] → [question] → [method] → [changed judgement]`.
 

@@ -149,6 +149,19 @@ class SkillOrchestrationTests(unittest.TestCase):
         ):
             self.assertIn(heading, skill)
 
+class OutputTransparencyTests(unittest.TestCase):
+    def test_output_schema_adds_concise_evidence_based_arbitration(self) -> None:
+        schema = read(OUTPUT_SCHEMA)
+        self.assertIn("## 12. Expert consensus and disagreement", schema)
+        self.assertIn("approximately 150 Chinese characters", schema)
+        self.assertIn("evidence, not vote count", schema)
+        self.assertIn("Do not expose private chain-of-thought", schema)
+
+    def test_output_schema_never_simulates_consensus_after_fallback(self) -> None:
+        schema = read(OUTPUT_SCHEMA)
+        self.assertIn("one-sentence fallback disclosure", schema)
+        self.assertIn("do not claim expert consensus", schema)
+
 
 if __name__ == "__main__":
     unittest.main()
