@@ -68,7 +68,7 @@ Check CV-like merit inventory, observable reasoning, method, evidence, limitatio
 
 Launch this specialist only when official programme information is supplied as text or an official programme page has been successfully verified. Do not launch it for an inaccessible URL alone.
 
-The Chair supplies one source label. Use `pasted_user_supplied_official_text` for official-looking text pasted by the user; it may be analysed against the draft but must never be described as independently verified. Use `verified_official_page` only after the official page was successfully accessed. Retain `source_provenance` in every programme finding so the Chair can preserve it through final programme claims and arbitration.
+The Chair supplies one source label. Use `pasted_user_supplied_official_text` for official-looking text pasted by the user; it may be analysed against the draft but must never be described as independently verified. Use `verified_official_page` only after the official page was successfully accessed. The single top-level `source_provenance` field applies to every programme finding and accompanies those findings through Chair synthesis and arbitration. Never add `source_provenance` inside a finding or as any other per-finding field.
 
 Distinguish verified official-page facts, user-supplied pasted material, and applicant assertions. Test the backward, resource, and forward links for each major match claim. Flag generic praise and mark unsupported resources `not_assessable`. Do not reward ranking, reputation, location, or broad course praise by itself.
 

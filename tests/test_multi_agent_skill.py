@@ -167,7 +167,33 @@ class MultiAgentProtocolTests(unittest.TestCase):
         self.assertIn("`pasted_user_supplied_official_text`", programme)
         self.assertIn("must never be described as independently verified", programme)
         self.assertIn("`verified_official_page`", programme)
-        self.assertIn("Retain `source_provenance`", programme)
+        self.assertIn(
+            "The single top-level `source_provenance` field applies to every programme finding and accompanies those findings through Chair synthesis and arbitration.",
+            programme,
+        )
+        self.assertIn(
+            "Never add `source_provenance` inside a finding or as any other per-finding field.",
+            programme,
+        )
+        self.assertNotIn("Retain `source_provenance` in every programme finding", programme)
+
+        contract = re.search(
+            r"Return exactly one compact summary using this shape:\n\n```text\n([\s\S]*?)\n```",
+            protocol,
+        )
+        self.assertIsNotNone(contract)
+        assert contract is not None
+        finding_shape = contract.group(1).split("findings:", 1)[1].split(
+            "uncertainties:", 1
+        )[0]
+        per_finding_fields = re.findall(
+            r"^\s+(?:- )?([a-z_]+):", finding_shape, re.MULTILINE
+        )
+        self.assertEqual(
+            per_finding_fields,
+            ["severity", "judgement", "evidence", "consequence"],
+        )
+        self.assertNotIn("source_provenance", per_finding_fields)
 
     def test_protocol_makes_programme_review_conditional_and_defines_fallbacks(self) -> None:
         protocol = read(PROTOCOL)
