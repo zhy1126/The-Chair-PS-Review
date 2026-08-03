@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import unittest
 
 
@@ -199,9 +200,27 @@ class DocumentationTests(unittest.TestCase):
         self.assertIn("无需额外安装", readme)
 
     def test_visible_metadata_mentions_parallel_expert_review(self) -> None:
-        metadata = read(OPENAI_YAML)
-        self.assertIn("多专家并行", metadata)
-        self.assertIn("由 Chair 仲裁", metadata)
+        lines = read(OPENAI_YAML).splitlines()
+        self.assertEqual(lines[0], "interface:")
+        self.assertEqual(len(lines), 4)
+        fields = {}
+        for line in lines[1:]:
+            match = re.fullmatch(
+                r'  (display_name|short_description|default_prompt): "([^"]+)"', line
+            )
+            self.assertIsNotNone(match, f"invalid interface field: {line}")
+            assert match is not None
+            fields[match.group(1)] = match.group(2)
+        self.assertEqual(
+            set(fields), {"display_name", "short_description", "default_prompt"}
+        )
+        self.assertIn("多专家并行", fields["short_description"])
+        self.assertIn("由 Chair 仲裁", fields["short_description"])
+        self.assertGreaterEqual(len(fields["short_description"]), 25)
+        self.assertLessEqual(len(fields["short_description"]), 64)
+        self.assertIn("多 Agent", fields["display_name"])
+        self.assertIn("多专家并行", fields["default_prompt"])
+        self.assertIn("由 Chair 仲裁", fields["default_prompt"])
 
     def test_manual_scenarios_cover_runtime_and_safety_boundaries(self) -> None:
         self.assertTrue(MANUAL_SCENARIOS.exists(), "manual scenario matrix is missing")
@@ -217,6 +236,42 @@ class DocumentationTests(unittest.TestCase):
             "## 8. Numerical-score request",
         ):
             self.assertIn(heading, scenarios)
+
+    def test_manual_scenarios_are_executable_with_synthetic_fixture(self) -> None:
+        scenarios = read(MANUAL_SCENARIOS)
+        self.assertIn("## Synthetic fixture", scenarios)
+        fixture = section(scenarios, "## Synthetic fixture")
+        for detail in (
+            "Applicant background",
+            "Exact essay prompt",
+            "Word limit",
+            "Synthetic official programme information",
+            "Paragraph 1",
+            "Paragraph 2",
+            "Paragraph 3",
+            "Paragraph 4",
+        ):
+            self.assertIn(detail, fixture)
+
+        for number, title in (
+            (1, "Complete four-specialist review"),
+            (2, "Three-specialist review without official programme information"),
+            (3, "Partial specialist failure"),
+            (4, "Total specialist failure"),
+            (5, "Material specialist disagreement"),
+            (6, "Incomplete intake"),
+            (7, "Ghostwriting and invention request"),
+            (8, "Numerical-score request"),
+        ):
+            scenario = section(scenarios, f"## {number}. {title}")
+            for marker in ("**Setup**", "**Prompt**", "**Action**", "**Pass criteria**"):
+                self.assertIn(marker, scenario)
+            prompt = scenario[scenario.index("**Prompt**") : scenario.index("**Action**")]
+            self.assertRegex(prompt, r"```text\n[\s\S]*\$the-chair-ps-review[\s\S]*\n```")
+
+    def test_touched_documentation_uses_lf_line_endings(self) -> None:
+        for path in (README, OPENAI_YAML):
+            self.assertNotIn(b"\r\n", path.read_bytes(), f"CRLF found in {path}")
 
 
 if __name__ == "__main__":
