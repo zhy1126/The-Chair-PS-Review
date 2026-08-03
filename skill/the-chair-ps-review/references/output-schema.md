@@ -73,7 +73,19 @@ Keep this section to approximately 150 Chinese characters or a similarly compact
 
 Do not expose private chain-of-thought or append complete specialist reports.
 
-When multi-agent capability was unavailable or every specialist failed, replace this section with a one-sentence fallback disclosure and do not claim expert consensus.
+This section consumes only normalized specialist summaries whose contract has exactly `role`, `status`, `source_provenance`, `scope_reviewed`, `findings`, `uncertainties`, and `overlap_flags`. Preserve `source_provenance` in programme claims and arbitration: user-pasted official-looking text is `pasted_user_supplied_official_text`, not independent verification; only a successfully accessed official page is `verified_official_page`.
+
+Use these section-specific branches after every requested role has returned or been normalized:
+
+| Completed roles after normalization | Non-completed roles after normalization | Required path |
+|---|---|---|
+| All requested roles | None | Normal multi-agent synthesis. |
+| At least one | At least one | Partial coverage: use only `completed` findings and disclose every non-completed dimension and status. |
+| Zero | All requested roles | Explicit single-agent fallback regardless of the `failed`/`not_assessable` mix; do not claim consensus. |
+
+For at least one `completed` and at least one non-completed role, use findings only from `completed` roles and name every non-completed dimension and status (`not_assessable` or `failed`) under reduced coverage. For zero `completed` roles, replace this section with a one-sentence single-agent fallback disclosure; do not preserve or imply successful specialist results.
+
+When multi-agent capability was unavailable, use the same one-sentence fallback disclosure and do not claim expert consensus.
 
 Do not provide a full rewritten paragraph or essay. If an illustration is essential, use placeholders such as `[specific observation] → [question] → [method] → [changed judgement]`.
 
