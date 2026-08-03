@@ -45,7 +45,7 @@ Read `references/application-contexts.md` when the prompt type, required inputs,
 
 The primary agent remains the Chair. Delegate only after the required intake is complete or the user explicitly accepts a provisional text-only precheck.
 
-Prepare the smallest sufficient shared context: application type, document type, institution and programme, exact prompt, word limit, applicant background, draft, verified or pasted official programme information, and known limitations. Remove or mask identifiers that are unnecessary for review.
+Prepare the smallest sufficient shared context: application type, document type, institution and programme, exact prompt, word limit, applicant background, draft, verified or pasted official programme information, and known limitations. Remove or mask identifiers that are unnecessary for review. Then prepare a separately minimized packet for each specialist: task-compliance gets prompt, limits, institution, programme, and draft but no irrelevant background; narrative gets draft plus only trajectory/background needed to understand progression; depth/credibility gets draft plus only chronology/role context needed; programme-match gets only draft match claims, training needs, and verified/pasted official programme information. Do not send official programme material to roles that do not need it.
 
 When subagent tools are available:
 
@@ -53,11 +53,12 @@ When subagent tools are available:
 2. Always launch the task-compliance, narrative-structure, and depth-and-credibility specialists.
 3. Launch the programme-match specialist only when official programme information was pasted by the user or an official page was successfully verified. Do not launch the programme-match specialist for an inaccessible URL alone.
 4. Wait for every launched specialist before synthesising the diagnosis.
-5. Treat specialist conclusions as evidence, not votes. Resolve overlap and conflict with the draft, verified programme facts, role ownership, and `references/rubric.md`.
+5. Validate every returned summary against the shared result contract before synthesis: accept only known roles, valid statuses, required compact fields, and at most five findings. Retain only contract fields. Treat missing, malformed, or overlong responses as failed. Record valid `not_assessable` as unavailable coverage and never as evidence. Determine partial or total failure from normalized statuses.
+6. Treat specialist conclusions as evidence, not votes. Resolve overlap and conflict with the draft, verified programme facts, role ownership, and `references/rubric.md`.
 
-If subagent tools are disabled, unavailable, or every specialist fails, tell the user before falling back to the existing single-agent diagnostic workflow below. Never claim expert consensus after a full fallback. If one or more, but not all, specialists fail, preserve all successful results and disclose every dimension with reduced coverage in the final transparency section.
+If subagent tools are disabled or unavailable, or every launched response is failed, missing, or malformed, tell the user before falling back to the existing single-agent diagnostic workflow below. Never claim expert consensus after a full fallback. If one or more, but not all, specialists fail, preserve all successful results and disclose every dimension with reduced coverage in the final transparency section.
 
-Do not expose private chain-of-thought or append full specialist reports. The Chair writes one report only.
+Do not expose private chain-of-thought or append full specialist reports. Never carry full specialist reports or private reasoning into Chair synthesis. The Chair writes one report only.
 
 ## Apply the diagnostic and synthesis checklist
 

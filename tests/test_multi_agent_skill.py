@@ -100,6 +100,55 @@ class SkillOrchestrationTests(unittest.TestCase):
             skill,
         )
 
+    def test_skill_minimizes_context_for_each_specialist(self) -> None:
+        skill = read(SKILL)
+        self.assertIn("separately minimized packet for each specialist", skill)
+        self.assertIn(
+            "task-compliance gets prompt, limits, institution, programme, and draft but no irrelevant background",
+            skill,
+        )
+        self.assertIn(
+            "narrative gets draft plus only trajectory/background needed to understand progression",
+            skill,
+        )
+        self.assertIn(
+            "depth/credibility gets draft plus only chronology/role context needed",
+            skill,
+        )
+        self.assertIn(
+            "programme-match gets only draft match claims, training needs, and verified/pasted official programme information",
+            skill,
+        )
+        self.assertIn("Do not send official programme material to roles that do not need it", skill)
+
+    def test_skill_normalizes_specialist_results_before_synthesis(self) -> None:
+        skill = read(SKILL)
+        self.assertIn("Validate every returned summary against the shared result contract before synthesis", skill)
+        self.assertIn("accept only known roles, valid statuses, required compact fields, and at most five findings", skill)
+        self.assertIn("Retain only contract fields", skill)
+        self.assertIn("Treat missing, malformed, or overlong responses as failed", skill)
+        self.assertIn("valid `not_assessable` as unavailable coverage and never as evidence", skill)
+        self.assertIn("Determine partial or total failure from normalized statuses", skill)
+        self.assertIn("every launched response is failed, missing, or malformed", skill)
+        self.assertIn("Never carry full specialist reports or private reasoning into Chair synthesis", skill)
+
+    def test_skill_retains_existing_checklist_and_privacy_boundaries(self) -> None:
+        skill = read(SKILL)
+        self.assertIn("Do not perform a duplicate full review before launching specialists", skill)
+        self.assertIn("Do not expose private chain-of-thought or append full specialist reports", skill)
+        for heading in (
+            "### 1. Classify the task",
+            "### 2. Check hard requirements",
+            "### 3. State the fit thesis",
+            "### 4. Map the main line",
+            "### 5. Audit CV-likeness",
+            "### 6. Audit depth and credibility",
+            "### 7. Audit programme match",
+            "### 8. Classify after diagnosing",
+            "### 9. Prioritise revision",
+        ):
+            self.assertIn(heading, skill)
+
 
 if __name__ == "__main__":
     unittest.main()
