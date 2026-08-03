@@ -94,6 +94,11 @@ class SkillOrchestrationTests(unittest.TestCase):
         self.assertIn("official programme information", skill)
         self.assertIn("tell the user before falling back", skill.lower())
         self.assertIn("Never claim expert consensus after a full fallback", skill)
+        self.assertIn("If one or more, but not all, specialists fail", skill)
+        self.assertIn(
+            "preserve all successful results and disclose every dimension with reduced coverage",
+            skill,
+        )
 
 
 if __name__ == "__main__":

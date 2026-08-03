@@ -55,7 +55,7 @@ When subagent tools are available:
 4. Wait for every launched specialist before synthesising the diagnosis.
 5. Treat specialist conclusions as evidence, not votes. Resolve overlap and conflict with the draft, verified programme facts, role ownership, and `references/rubric.md`.
 
-If subagent tools are disabled, unavailable, or every specialist fails, tell the user before falling back to the existing single-agent diagnostic workflow below. Never claim expert consensus after a full fallback. If only one specialist fails, preserve successful results and disclose the reduced coverage in the final transparency section.
+If subagent tools are disabled, unavailable, or every specialist fails, tell the user before falling back to the existing single-agent diagnostic workflow below. Never claim expert consensus after a full fallback. If one or more, but not all, specialists fail, preserve all successful results and disclose every dimension with reduced coverage in the final transparency section.
 
 Do not expose private chain-of-thought or append full specialist reports. The Chair writes one report only.
 
