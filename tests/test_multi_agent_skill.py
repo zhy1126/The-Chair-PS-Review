@@ -185,5 +185,39 @@ class OutputTransparencyTests(unittest.TestCase):
         self.assertNotIn("End with a self-revision checklist.", skill)
 
 
+class DocumentationTests(unittest.TestCase):
+    def test_readme_documents_multi_agent_cost_condition_and_fallback(self) -> None:
+        readme = read(README)
+        self.assertIn("## 多 Agent 工作方式", readme)
+        self.assertIn("任务合规专家", readme)
+        self.assertIn("主线结构专家", readme)
+        self.assertIn("深度真实性专家", readme)
+        self.assertIn("项目匹配专家", readme)
+        self.assertIn("只有在官方项目资料可用时", readme)
+        self.assertIn("会消耗更多 token", readme)
+        self.assertIn("降级为单 Agent", readme)
+        self.assertIn("无需额外安装", readme)
+
+    def test_visible_metadata_mentions_parallel_expert_review(self) -> None:
+        metadata = read(OPENAI_YAML)
+        self.assertIn("多专家并行", metadata)
+        self.assertIn("由 Chair 仲裁", metadata)
+
+    def test_manual_scenarios_cover_runtime_and_safety_boundaries(self) -> None:
+        self.assertTrue(MANUAL_SCENARIOS.exists(), "manual scenario matrix is missing")
+        scenarios = read(MANUAL_SCENARIOS)
+        for heading in (
+            "## 1. Complete four-specialist review",
+            "## 2. Three-specialist review without official programme information",
+            "## 3. Partial specialist failure",
+            "## 4. Total specialist failure",
+            "## 5. Material specialist disagreement",
+            "## 6. Incomplete intake",
+            "## 7. Ghostwriting and invention request",
+            "## 8. Numerical-score request",
+        ):
+            self.assertIn(heading, scenarios)
+
+
 if __name__ == "__main__":
     unittest.main()
