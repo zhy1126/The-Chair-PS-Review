@@ -11,6 +11,7 @@ PROTOCOL = SKILL_DIR / "references" / "multi-agent-protocol.md"
 SKILL = SKILL_DIR / "SKILL.md"
 OUTPUT_SCHEMA = SKILL_DIR / "references" / "output-schema.md"
 README = ROOT / "README.md"
+CHANGELOG = ROOT / "CHANGELOG.md"
 OPENAI_YAML = SKILL_DIR / "agents" / "openai.yaml"
 MANUAL_SCENARIOS = ROOT / "tests" / "manual-scenarios.md"
 
@@ -371,6 +372,15 @@ class OutputTransparencyTests(unittest.TestCase):
 
 
 class DocumentationTests(unittest.TestCase):
+    def test_release_metadata_identifies_v2_multi_agent_edition(self) -> None:
+        readme = read(README)
+        self.assertIn("v2.0.0 — Multi-Agent Edition", readme)
+        self.assertTrue(CHANGELOG.exists(), "release changelog is missing")
+        changelog = read(CHANGELOG)
+        self.assertIn("## [2.0.0] - 2026-08-04", changelog)
+        self.assertIn("并行专家审查", changelog)
+        self.assertIn("单 Agent 降级", changelog)
+
     def test_readme_documents_multi_agent_cost_condition_and_fallback(self) -> None:
         readme = read(README)
         self.assertIn("## 多 Agent 工作方式", readme)
